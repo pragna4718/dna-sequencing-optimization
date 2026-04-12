@@ -1,0 +1,62 @@
+
+    <html>
+    <head>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 40px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        .seq {
+            font-size: 32px;
+            letter-spacing: 12px;
+            line-height: 60px;
+        }
+
+        .char {
+            display: inline-block;
+            width: 28px;
+            text-align: center;
+        }
+
+        .mismatch {
+            background-color: #ff4d4d;
+            color: white;
+            border-radius: 6px;
+            padding: 6px;
+        }
+
+        .indel {
+            background-color: #9be79b;
+            border-radius: 6px;
+            padding: 6px;
+        }
+
+        .connector {
+            font-size: 32px;
+            letter-spacing: 12px;
+            color: #3b6ea5;
+            height: 40px;
+        }
+
+        .legend {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        .red { color: red; }
+        .green { color: green; }
+
+    </style>
+    </head>
+    <body>
+    <h2>Ancestral sequence:</h2><div class='seq'><span class='char'>A</span><span class='char'>T</span><span class='char'>A</span><span class='char'>-</span><span class='char'>T</span><span class='char'>G</span><span class='char'>C</span><span class='char'>G</span><span class='char'>T</span><span class='char'>A</span><span class='char'>G</span><span class='char'>T</span><span class='char'>C</span><span class='char'>A</span><span class='char'>T</span><span class='char'>G</span><span class='char'>C</span><span class='char'>A</span><span class='char'>G</span><span class='char'>T</span><span class='char'>C</span></div><br><h2>Sequence derived from ancestral sequence:</h2><div class='seq'><span class='char mismatch'>G</span><span class='char'>T</span><span class='char'>A</span><span class='char indel'>G</span><span class='char'>T</span><span class='char mismatch'>A</span><span class='char'>C</span><span class='char'>G</span><span class='char'>T</span><span class='char'>A</span><span class='char indel'>-</span><span class='char indel'>-</span><span class='char'>C</span><span class='char'>A</span><span class='char'>T</span><span class='char'>G</span><span class='char'>C</span><span class='char'>A</span><span class='char mismatch'>T</span><span class='char mismatch'>G</span><span class='char'>C</span></div>
+    <div class="legend">
+        <div class="red">mismatches</div>
+        <div class="green">indels</div>
+    </div>
+    <h2 style='margin-top:40px;'>Alignment:</h2><div class='seq'><span class='char'>A</span><span class='char'>T</span><span class='char'>A</span><span class='char'>-</span><span class='char'>T</span><span class='char'>G</span><span class='char'>C</span><span class='char'>G</span><span class='char'>T</span><span class='char'>A</span><span class='char'>G</span><span class='char'>T</span><span class='char'>C</span><span class='char'>A</span><span class='char'>T</span><span class='char'>G</span><span class='char'>C</span><span class='char'>A</span><span class='char'>G</span><span class='char'>T</span><span class='char'>C</span></div><div class='connector'><span class='char'> </span><span class='char'>|</span><span class='char'>|</span><span class='char'> </span><span class='char'>|</span><span class='char'> </span><span class='char'>|</span><span class='char'>|</span><span class='char'>|</span><span class='char'>|</span><span class='char'> </span><span class='char'> </span><span class='char'>|</span><span class='char'>|</span><span class='char'>|</span><span class='char'>|</span><span class='char'>|</span><span class='char'>|</span><span class='char'> </span><span class='char'> </span><span class='char'>|</span></div><div class='seq'><span class='char'>G</span><span class='char'>T</span><span class='char'>A</span><span class='char'>G</span><span class='char'>T</span><span class='char'>A</span><span class='char'>C</span><span class='char'>G</span><span class='char'>T</span><span class='char'>A</span><span class='char'>-</span><span class='char'>-</span><span class='char'>C</span><span class='char'>A</span><span class='char'>T</span><span class='char'>G</span><span class='char'>C</span><span class='char'>A</span><span class='char'>T</span><span class='char'>G</span><span class='char'>C</span></div></body></html>
