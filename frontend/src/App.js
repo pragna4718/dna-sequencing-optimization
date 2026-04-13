@@ -124,6 +124,15 @@ function MainWindow({ onNavigate }) {
 export default function App() {
   const [page, setPage] = useState(null);
 
+  const handleNavigate = (pageLabel) => {
+    if (pageLabel === "Real World Applications") {
+      window.location.href = "/usecase.html";
+      return;
+    }
+
+    setPage(pageLabel);
+  };
+
   if (page) {
     return (
       <PlaceholderPage
@@ -133,5 +142,5 @@ export default function App() {
     );
   }
 
-  return <MainWindow onNavigate={setPage} />;
+  return <MainWindow onNavigate={handleNavigate} />;
 }
