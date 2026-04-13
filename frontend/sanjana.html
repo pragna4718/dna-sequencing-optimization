@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNA Sequencing Optimization</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Subtle DNA pattern overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
+                              radial-gradient(circle at 40% 40%, rgba(0, 0, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+        }
+
+        .heading {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.3);
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.3); }
+            to { text-shadow: 0 0 30px rgba(0, 255, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.5); }
+        }
+
+        .subheading {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 40px 0;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+            border-color: rgba(0, 255, 255, 0.5);
+        }
+
+        .card-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: #00ff88;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            color: #d0d0d0;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .flow-diagram {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            color: #00ffff;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .flow-diagram .step {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .flow-diagram .arrow {
+            color: #00ff88;
+            margin: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+            .heading {
+                font-size: 2.5rem;
+            }
+            .subheading {
+                font-size: 1rem;
+            }
+            .use-cases {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .card {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .heading {
+                font-size: 2rem;
+            }
+            .container {
+                padding: 10px;
+            }
+            header {
+                padding: 40px 10px 20px;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Fade-in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="heading">DNA Sequencing Optimization</h1>
+            <p class="subheading">Revolutionizing genetic analysis through advanced algorithms and computational efficiency</p>
+        </header>
+
+        <section class="use-cases">
+            <div class="card fade-in">
+                <h2 class="card-title">Healthcare</h2>
+                <p class="card-description">
+                    In healthcare, optimized DNA sequencing enables rapid diagnosis of genetic disorders. By reducing computational time, clinicians can analyze patient genomes faster, leading to quicker treatment decisions. This technology supports early detection of diseases like cancer and inherited conditions, improving patient outcomes through personalized care plans.
+                </p>
+                <div class="flow-diagram">
+                    <span class="step">Sample Collection</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Fast Sequencing</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Quick Analysis</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Diagnosis</span>
+                </div>
+            </div>
+
+            <div class="card fade-in">
+                <h2 class="card-title">Drug Discovery</h2>
+                <p class="card-description">
+                    Pharmaceutical companies use optimized sequencing to identify drug targets more efficiently. By accelerating genome analysis, researchers can screen vast libraries of compounds against genetic data, speeding up the drug development pipeline. This leads to faster identification of potential treatments for complex diseases.
+                </p>
+                <div class="flow-diagram">
+                    <span class="step">Genome Screening</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Target Identification</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Compound Testing</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Drug Development</span>
+                </div>
+            </div>
+
+            <div class="card fade-in">
+                <h2 class="card-title">Agriculture</h2>
+                <p class="card-description">
+                    Farmers and breeders leverage optimized DNA sequencing for crop improvement. Rapid analysis of plant genomes allows for quicker development of drought-resistant and high-yield varieties. This technology supports sustainable agriculture by enabling precise genetic modifications that enhance food security.
+                </p>
+                <div class="flow-diagram">
+                    <span class="step">Plant Sampling</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Genome Analysis</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Trait Selection</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Crop Breeding</span>
+                </div>
+            </div>
+
+            <div class="card fade-in">
+                <h2 class="card-title">Personalized Medicine</h2>
+                <p class="card-description">
+                    Personalized medicine relies on optimized sequencing to tailor treatments to individual genetic profiles. By processing genomic data swiftly, healthcare providers can recommend medications that work best for each patient, minimizing side effects and maximizing efficacy. This approach transforms healthcare from one-size-fits-all to truly individualized care.
+                </p>
+                <div class="flow-diagram">
+                    <span class="step">Genetic Profiling</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Data Analysis</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Treatment Matching</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Custom Therapy</span>
+                </div>
+            </div>
+
+            <div class="card fade-in">
+                <h2 class="card-title">Genetic Engineering</h2>
+                <p class="card-description">
+                    Genetic engineers use optimized sequencing for precise gene editing. Fast computational analysis enables accurate identification of target sequences, improving the success rate of CRISPR and other editing techniques. This technology accelerates advancements in biotechnology, from disease-resistant crops to potential cures for genetic disorders.
+                </p>
+                <div class="flow-diagram">
+                    <span class="step">Sequence Mapping</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Target Selection</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Gene Editing</span>
+                    <span class="arrow">→</span>
+                    <span class="step">Validation</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
