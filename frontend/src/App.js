@@ -53,6 +53,106 @@ function MenuDrawer({ open, onClose, onNavigate }) {
   );
 }
 
+// ─── Codon–Amino Acid Table Page ──────────────────────────────────────────────
+const CODON_DATA = [
+  { codons: "TTT, TTC", amino: "Phenylalanine", structure: "H2N—CH(CH₂-C₆H₅)—COOH" },
+  { codons: "TTA, TTG, CTT, CTC, CTA, CTG", amino: "Leucine", structure: "H2N—CH(CH₂-CH(CH₃)₂)—COOH" },
+  { codons: "ATT, ATC, ATA", amino: "Isoleucine", structure: "H2N—CH(CH(CH₃)-CH₂-CH₃)—COOH" },
+  { codons: "ATG", amino: "Methionine (Start)", structure: "H2N—CH(CH₂-CH₂-S-CH₃)—COOH" },
+  { codons: "GTT, GTC, GTA, GTG", amino: "Valine", structure: "H2N—CH(CH(CH₃)₂)—COOH" },
+  { codons: "TCT, TCC, TCA, TCG, AGT, AGC", amino: "Serine", structure: "H2N—CH(CH₂OH)—COOH" },
+  { codons: "CCT, CCC, CCA, CCG", amino: "Proline", structure: "NH—(CH₂)₃—CH—COOH" },
+  { codons: "ACT, ACC, ACA, ACG", amino: "Threonine", structure: "H2N—CH(CH(OH)-CH₃)—COOH" },
+  { codons: "GCT, GCC, GCA, GCG", amino: "Alanine", structure: "H2N—CH(CH₃)—COOH" },
+  { codons: "TAT, TAC", amino: "Tyrosine", structure: "H2N—CH(CH₂-C₆H₄-OH)—COOH" },
+  { codons: "TAA, TAG, TGA", amino: "STOP", structure: "—" },
+  { codons: "CAT, CAC", amino: "Histidine", structure: "H2N—CH(CH₂-imidazole)—COOH" },
+  { codons: "CAA, CAG", amino: "Glutamine", structure: "H2N—CH(CH₂-CH₂-CONH₂)—COOH" },
+  { codons: "AAT, AAC", amino: "Asparagine", structure: "H2N—CH(CH₂-CONH₂)—COOH" },
+  { codons: "AAA, AAG", amino: "Lysine", structure: "H2N—CH((CH₂)₄-NH₂)—COOH" },
+  { codons: "GAT, GAC", amino: "Aspartic Acid", structure: "H2N—CH(CH₂-COOH)—COOH" },
+  { codons: "GAA, GAG", amino: "Glutamic Acid", structure: "H2N—CH(CH₂-CH₂-COOH)—COOH" },
+  { codons: "TGT, TGC", amino: "Cysteine", structure: "H2N—CH(CH₂SH)—COOH" },
+  { codons: "TGG", amino: "Tryptophan", structure: "H2N—CH(CH₂-indole)—COOH" },
+  { codons: "CGT, CGC, CGA, CGG, AGA, AGG", amino: "Arginine", structure: "H2N—CH((CH₂)₃-NH-C(=NH)-NH₂)—COOH" },
+  { codons: "GGT, GGC, GGA, GGG", amino: "Glycine", structure: "H2N—CH₂—COOH" },
+];
+
+function CodonTablePage({ onBack }) {
+  const [search, setSearch] = useState("");
+  const filtered = CODON_DATA.filter(
+    (row) =>
+      row.amino.toLowerCase().includes(search.toLowerCase()) ||
+      row.codons.toLowerCase().includes(search.toLowerCase())
+  );
+
+  return (
+    <div className="main-root codon-root">
+      <button
+        className="menu-trigger codon-back-btn"
+        onClick={onBack}
+        title="Back"
+        aria-label="Back to main"
+      >
+        <span className="back-arrow">←</span>
+      </button>
+
+      <div className="codon-wrapper">
+        <div className="codon-card">
+          <div className="card-top-accent" />
+          <div className="codon-header">
+            <h1 className="card-title" style={{ fontSize: "22px" }}>
+              DNA Codon–Amino Acid Table
+            </h1>
+            <input
+              className="codon-search"
+              type="text"
+              placeholder="Search codon or amino acid…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+
+          <div className="codon-table-wrap">
+            <table className="codon-table">
+              <thead>
+                <tr>
+                  <th>Codon(s)</th>
+                  <th>Amino Acid</th>
+                  <th>Chemical Structure</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((row, i) => (
+                  <tr
+                    key={i}
+                    className={row.amino === "STOP" ? "stop-row" : ""}
+                  >
+                    <td className="codon-cell">{row.codons}</td>
+                    <td className="amino-cell">{row.amino}</td>
+                    <td className="structure-cell">{row.structure}</td>
+                  </tr>
+                ))}
+                {filtered.length === 0 && (
+                  <tr>
+                    <td colSpan={3} className="no-results">
+                      No matches found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="codon-footer">
+            {filtered.length} of {CODON_DATA.length} entries
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Placeholder Page ─────────────────────────────────────────────────────────
 function PlaceholderPage({ title, onBack }) {
   return (
@@ -124,23 +224,13 @@ function MainWindow({ onNavigate }) {
 export default function App() {
   const [page, setPage] = useState(null);
 
-  const handleNavigate = (pageLabel) => {
-    if (pageLabel === "Real World Applications") {
-      window.location.href = "/usecase.html";
-      return;
-    }
-
-    setPage(pageLabel);
-  };
-
-  if (page) {
-    return (
-      <PlaceholderPage
-        title={page}
-        onBack={() => setPage(null)}
-      />
-    );
+  if (page === "DNA Codon–Amino Acid Table") {
+    return <CodonTablePage onBack={() => setPage(null)} />;
   }
 
-  return <MainWindow onNavigate={handleNavigate} />;
+  if (page) {
+    return <PlaceholderPage title={page} onBack={() => setPage(null)} />;
+  }
+
+  return <MainWindow onNavigate={setPage} />;
 }
