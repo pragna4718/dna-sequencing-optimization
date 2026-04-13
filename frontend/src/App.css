@@ -596,3 +596,434 @@ button:focus-visible {
     word-break: break-all;
   }
 }
+
+/* ── DNA to Amino Acid Page ────────────────────────────────────────────────── */
+.dna-form {
+  padding: 0 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dna-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dna-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0, 229, 255, 0.6);
+}
+
+.dna-textarea {
+  width: 100%;
+  min-height: 110px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  background: rgba(0, 229, 255, 0.03);
+  color: #e0f7ff;
+  font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+  font-size: 13.5px;
+  line-height: 1.7;
+  resize: vertical;
+  outline: none;
+  letter-spacing: 0.06em;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.dna-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+  font-family: inherit;
+  letter-spacing: 0.02em;
+}
+
+.dna-textarea:focus {
+  border-color: rgba(0, 229, 255, 0.45);
+  background: rgba(0, 229, 255, 0.06);
+}
+
+.dna-meta {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.04em;
+  text-align: right;
+}
+
+.dna-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dna-reset-btn {
+  padding: 11px 22px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dna-reset-btn:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.dna-output-box {
+  width: 100%;
+  min-height: 130px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  background: rgba(168, 85, 247, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dna-placeholder {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 13.5px;
+  font-style: italic;
+  align-self: center;
+  margin: auto;
+}
+
+.dna-error {
+  color: rgba(255, 100, 100, 0.8);
+  font-size: 13.5px;
+  align-self: center;
+  margin: auto;
+}
+
+/* ── Chips ─────────────────────────────────────────────────────────────────── */
+.dna-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dna-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: rgba(0, 229, 255, 0.06);
+  border: 1px solid rgba(0, 229, 255, 0.18);
+  border-radius: 8px;
+  padding: 6px 10px;
+  min-width: 68px;
+  transition: background 0.15s ease;
+}
+
+.dna-chip:hover {
+  background: rgba(0, 229, 255, 0.12);
+}
+
+.chip-stop {
+  background: rgba(255, 80, 80, 0.08);
+  border-color: rgba(255, 80, 80, 0.3);
+}
+
+.chip-stop:hover {
+  background: rgba(255, 80, 80, 0.14);
+}
+
+.chip-start {
+  background: rgba(0, 255, 150, 0.08);
+  border-color: rgba(0, 255, 150, 0.3);
+}
+
+.chip-start:hover {
+  background: rgba(0, 255, 150, 0.14);
+}
+
+.chip-codon {
+  font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+  font-size: 11.5px;
+  color: rgba(0, 229, 255, 0.85);
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.chip-stop .chip-codon { color: rgba(255, 100, 100, 0.85); }
+.chip-start .chip-codon { color: rgba(0, 255, 150, 0.85); }
+
+.chip-amino {
+  font-size: 10px;
+  color: rgba(196, 181, 253, 0.75);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.chip-stop .chip-amino { color: rgba(255, 100, 100, 0.65); }
+.chip-start .chip-amino { color: rgba(0, 255, 150, 0.65); }
+
+/* ── Summary & stats ───────────────────────────────────────────────────────── */
+.dna-summary {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.7;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 12px;
+}
+
+.dna-summary-label {
+  color: rgba(196, 181, 253, 0.6);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.dna-stats {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 12px;
+}
+
+.dna-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.stat-val {
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1;
+}
+
+.stat-key {
+  font-size: 10.5px;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.stat-green { color: rgba(0, 229, 150, 0.9); }
+.stat-warn  { color: rgba(255, 180, 60, 0.85); }
+
+@media (max-width: 768px) {
+  .dna-form {
+    padding: 0 16px 24px;
+  }
+
+  .dna-chips {
+    gap: 6px;
+  }
+
+  .dna-chip {
+    min-width: 58px;
+    padding: 5px 8px;
+  }
+
+  .dna-stats {
+    gap: 14px;
+  }
+}
+
+/* ── Use Cases Page ────────────────────────────────────────────────────────── */
+.usecase-root {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  overflow-x: hidden;
+  padding-top: 80px;
+  pointer-events: all;
+}
+
+.usecase-root::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0, 0, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.usecase-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.usecase-header {
+  text-align: center;
+  padding: 40px 20px;
+  position: relative;
+}
+
+.usecase-heading {
+  font-family: 'Orbitron', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #00ffff;
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.3);
+  margin-bottom: 20px;
+  animation: usecase-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes usecase-glow {
+  from { text-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.3); }
+  to { text-shadow: 0 0 30px rgba(0, 255, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.5); }
+}
+
+.usecase-subheading {
+  font-size: 1.2rem;
+  color: #b0b0b0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.usecase-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 40px 0;
+}
+
+.usecase-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 25px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.usecase-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.usecase-card:hover::before {
+  left: 100%;
+}
+
+.usecase-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+  border-color: rgba(0, 255, 255, 0.5);
+}
+
+.usecase-card-title {
+  font-family: 'Orbitron', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+  font-size: 1.5rem;
+  color: #00ff88;
+  margin-bottom: 15px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.usecase-card-description {
+  font-size: 0.95rem;
+  color: #d0d0d0;
+  margin-bottom: 20px;
+  line-height: 1.7;
+  position: relative;
+  z-index: 1;
+}
+
+.usecase-flow-diagram {
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: #00ffff;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  position: relative;
+  z-index: 1;
+  overflow-x: auto;
+}
+
+.usecase-flow-diagram .usecase-step {
+  display: inline-block;
+  margin: 0 5px;
+  white-space: nowrap;
+}
+
+.usecase-flow-diagram .usecase-arrow {
+  color: #00ff88;
+  margin: 0 10px;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .usecase-heading {
+    font-size: 2.5rem;
+  }
+  
+  .usecase-subheading {
+    font-size: 1rem;
+  }
+  
+  .usecase-section {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .usecase-card {
+    padding: 20px;
+  }
+  
+  .usecase-root {
+    padding-top: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .usecase-heading {
+    font-size: 2rem;
+  }
+  
+  .usecase-container {
+    padding: 0 10px 32px;
+  }
+  
+  .usecase-header {
+    padding: 30px 10px;
+  }
+}
