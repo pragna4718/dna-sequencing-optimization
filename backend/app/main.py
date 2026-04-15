@@ -1,13 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.optimize import router as optimize_router
 from app.api import dna_translation
 from app.api import mutation
 from app.api import compression
 
 app = FastAPI()
 
-# ✅ CORS (IMPORTANT)
+# ✅ CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -16,7 +17,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ✅ Routers
+# ✅ Routers (FIXED PREFIXES)
+app.include_router(optimize_router, prefix="/optimize")   # 🔥 changed
 app.include_router(dna_translation.router, prefix="/dna")
-app.include_router(mutation.router)
-app.include_router(compression.router)
+app.include_router(mutation.router, prefix="/mutation")
+app.include_router(compression.router, prefix="/compression")

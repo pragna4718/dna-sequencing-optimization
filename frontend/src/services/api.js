@@ -51,3 +51,13 @@ export const runCompression = async (sequence) => {
 
   return await response.json();
 };
+
+export async function runOptimize(sequence) {
+  const response = await fetch(`${API_BASE_URL}/optimize/optimize`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ sequence }),
+  });
+  if (!response.ok) throw new Error("Optimize request failed");
+  return response.json();
+}

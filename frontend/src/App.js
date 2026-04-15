@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import { translateDNA, runMutation, runCompression } from "./services/api";
+import { translateDNA, runMutation, runCompression, runOptimize } from "./services/api";
 
 // ─── Menu Drawer ─────────────────────────────────────────────────────────────
 const MENU_ITEMS = [
@@ -647,6 +647,195 @@ function UseCasePage({ onBack }) {
   );
 }
 
+// ─── Algorithm Visualizer Component ──────────────────────────────────────────
+// ─── Algorithm Explanations Page ──────────────────────────────────────────────
+function AlgorithmExplanationsPage({ onBack }) {
+  const [sequence, setSequence] = useState("");
+  const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleOptimize = async () => {
+    const clean = sequence.toUpperCase().replace(/[^ATCG]/g, "");
+    if (clean.length < 3) {
+      setResult({ error: "Please enter a valid DNA sequence (at least 3 bases)." });
+      setSubmitted(true);
+      return;
+    }
+
+    setLoading(true);
+    setSubmitted(true);
+    try {
+      const data = await runOptimize(clean);
+      setResult(data);
+    } catch (error) {
+      setResult({ error: "Failed to optimize sequence. Please try again." });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const reset = () => {
+    setSequence("");
+    setResult(null);
+    setSubmitted(false);
+  };
+
+  const ALGO_KEYS = [
+    { key: "Greedy", label: "Greedy Algorithm" },
+    { key: "Divide and Conquer", label: "Divide & Conquer" },
+    { key: "String Matching", label: "String Matching" },
+    { key: "Hashing", label: "Hashing" },
+    { key: "Sliding Window", label: "Sliding Window" },
+    { key: "Branch and Bound", label: "Branch & Bound" },
+  ];
+
+  return (
+    <div className="main-root codon-root">
+      <button
+        className="menu-trigger codon-back-btn"
+        onClick={onBack}
+        title="Back"
+        aria-label="Back to main"
+      >
+        <span className="back-arrow">←</span>
+      </button>
+
+      <div className="codon-wrapper">
+        <div className="codon-card">
+          <div className="card-top-accent" />
+
+          {/* ── Input section ── */}
+          <div className="codon-header">
+            <h1 className="card-title" style={{ fontSize: "22px" }}>
+              DNA Sequencing Optimization
+            </h1>
+          </div>
+
+          <div className="opt-input-section">
+            <div className="dna-field">
+              <label className="dna-label">Enter the DNA Sequence</label>
+              <textarea
+                className="dna-textarea"
+                placeholder="e.g. ATGGCCTATCGAATGGCCTATCGA..."
+                value={sequence}
+                onChange={(e) => {
+                  setSequence(e.target.value);
+                  if (submitted) { setResult(null); setSubmitted(false); }
+                }}
+                spellCheck={false}
+              />
+              <div className="dna-meta">
+                {sequence.replace(/[^ATCGatcg]/g, "").length} bases
+              </div>
+            </div>
+
+            <div className="dna-actions" style={{ paddingBottom: "28px" }}>
+              <button
+                className="cta-btn"
+                onClick={handleOptimize}
+                disabled={!sequence.trim() || loading}
+              >
+                <span>{loading ? "Optimizing..." : "Optimize →"}</span>
+              </button>
+              {submitted && (
+                <button className="dna-reset-btn" onClick={reset}>
+                  Clear
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* ── Results section (shown after submit) ── */}
+          {submitted && (
+            <div className="opt-results-section">
+              <div style={{ height: "1px", background: "linear-gradient(90deg, transparent, rgba(0,229,255,0.2), transparent)" }} />
+              <div className="opt-results-label">Optimized DNA Sequence — Algorithm Results</div>
+
+              {/* Error state */}
+              {result?.error && (
+                <div className="dna-output-box" style={{ minHeight: "80px" }}>
+                  <span className="dna-error">{result.error}</span>
+                </div>
+              )}
+
+              {/* Loading skeleton */}
+              {loading && (
+                <div className="opt-placeholder-grid">
+                  {ALGO_KEYS.map(({ label }) => (
+                    <div key={label} className="opt-placeholder-card">
+                      <span className="opt-placeholder-inner">Running {label}…</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Results grid */}
+              {result && !result.error && !loading && (
+                <>
+                  <div className="opt-grid">
+                    {ALGO_KEYS.map(({ key, label }) => {
+                      const algo = result.results?.find(r => r.algorithm === key) || {};
+                      const seq = algo.output || "—";
+                      const timeComplexity = algo.time_complexity || "—";
+                      const spaceComplexity = algo.space_complexity || "—";
+                      const length = typeof seq === "string" ? seq.length : 0;
+
+                      return (
+                        <div key={key} className="opt-algo-card">
+                          <div className="opt-algo-name">{label}</div>
+                          <div className="opt-algo-sequence">
+                            {typeof seq === "string" ? seq : JSON.stringify(seq)}
+                          </div>
+                          <div className="opt-complexity-box">
+                            <div className="opt-complexity-row">
+                              <span className="opt-complexity-label">Time:</span>
+                              <span className="opt-complexity-value">{timeComplexity}</span>
+                            </div>
+                            <div className="opt-complexity-row">
+                              <span className="opt-complexity-label">Space:</span>
+                              <span className="opt-complexity-value">{spaceComplexity}</span>
+                            </div>
+                          </div>
+                          <div className="opt-algo-meta">
+                            {length > 0 && (
+                              <div className="opt-meta-pill">
+                                Length <span>{length}</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                </>
+              )}
+
+              {/* Empty placeholders before any result */}
+              {!result && !loading && (
+                <div className="opt-placeholder-grid">
+                  {ALGO_KEYS.map(({ label }) => (
+                    <div key={label} className="opt-placeholder-card">
+                      <span className="opt-placeholder-inner">{label}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          <div className="codon-footer" style={{ marginTop: "8px" }}>
+            Six optimization algorithms · Comparative sequence analysis · Complexity analysis
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  );
+}
+
 // ─── Placeholder Page ─────────────────────────────────────────────────────────
 function PlaceholderPage({ title, onBack }) {
   return (
@@ -717,6 +906,10 @@ function MainWindow({ onNavigate }) {
 // ─── Root ─────────────────────────────────────────────────────────────────────
 export default function App() {
   const [page, setPage] = useState(null);
+
+  if (page === "Algorithm Explanations") {
+    return <AlgorithmExplanationsPage onBack={() => setPage(null)} />;
+  }
 
   if (page === "DNA Codon–Amino Acid Table") {
     return <CodonTablePage onBack={() => setPage(null)} />;
