@@ -16,7 +16,7 @@ export const translateDNA = async (sequence) => {
 
 // ✅ MUTATION API
 export const runMutation = async (seq1, seq2) => {
-  const response = await fetch(`${API_BASE_URL}/mutation`, {
+  const response = await fetch(`${API_BASE_URL}/mutation/mutation`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -35,7 +35,7 @@ export const runMutation = async (seq1, seq2) => {
 };
 // ✅ COMPRESSION API
 export const runCompression = async (sequence) => {
-  const response = await fetch("http://localhost:8000/compress", {
+  const response = await fetch(`${API_BASE_URL}/compression/compress`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

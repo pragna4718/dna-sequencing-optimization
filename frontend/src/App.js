@@ -4,10 +4,11 @@ import { translateDNA, runMutation, runCompression, runOptimize } from "./servic
 
 // ─── Menu Drawer ─────────────────────────────────────────────────────────────
 const MENU_ITEMS = [
-  { label: "Algorithm Explanations", icon: "⚙️" },
+  { label: "Optimizer", icon: "⚙️" },
   { label: "DNA Sequence to Amino Acids", icon: "🧬" },
   { label: "DNA Compression", icon: "📦" },
   { label: "DNA Mutation", icon: "🔬" },
+  { label: "DAA Concept Explanation", icon: "📚" },
   { label: "DNA Codon–Amino Acid Table", icon: "📋" },
   { label: "Real World Applications", icon: "🌍" },
 ];
@@ -836,6 +837,150 @@ function AlgorithmExplanationsPage({ onBack }) {
   );
 }
 
+
+// ─── DAA Concept Explanation Page ────────────────────────────────────────────
+function DAAExplanationPage({ onBack }) {
+  return (
+    <div className="main-root codon-root">
+      <button className="menu-trigger codon-back-btn" onClick={onBack} title="Back" aria-label="Back to main">
+        <span className="back-arrow">←</span>
+      </button>
+
+      <div className="codon-wrapper">
+        <div className="codon-card">
+          <div className="card-top-accent" />
+          <div className="codon-header">
+            <h1 className="card-title" style={{ fontSize: "22px" }}>
+              DAA - Design and Analysis of Algorithms
+            </h1>
+          </div>
+
+          <div style={{ padding: "20px", color: "rgba(255, 255, 255, 0.9)", lineHeight: "1.8", fontSize: "14px" }}>
+            <div style={{ marginBottom: "24px" }}>
+              <h3 style={{ color: "#00e5ff", fontSize: "16px", marginBottom: "12px", fontWeight: "600" }}>Design and Analysis of Algorithms</h3>
+              <p>
+                DAA focuses on creating efficient algorithms and analyzing their performance. Below are six fundamental algorithmic paradigms used in computational biology and DNA sequencing optimization.
+              </p>
+            </div>
+
+            {/* Greedy Algorithm */}
+            <div style={{ marginBottom: "24px", backgroundColor: "rgba(0, 229, 255, 0.05)", padding: "20px", borderRadius: "8px", borderLeft: "4px solid #00e5ff" }}>
+              <h4 style={{ color: "#00e5ff", fontSize: "16px", marginBottom: "12px", fontWeight: "600" }}>1. Greedy Algorithm</h4>
+              <p style={{ marginBottom: "8px" }}>Greedy algorithms make locally optimal choices at each step with the hope of finding a global optimum. They are simple and often efficient for optimization problems.</p>
+              <p style={{ marginBottom: "8px" }}>In DNA sequencing, greedy approaches can be used for approximate sequence alignment or finding optimal paths through sequence graphs.</p>
+              <p style={{ marginBottom: "8px" }}>The algorithm builds solutions incrementally, always choosing the best immediate option without considering future consequences.</p>
+              <p style={{ marginBottom: "8px" }}>Common applications include Huffman coding for data compression and Kruskal's algorithm for minimum spanning trees.</p>
+              <p style={{ marginBottom: "8px" }}>Greedy strategies work well when the problem has the greedy-choice property and optimal substructure.</p>
+              <p style={{ marginBottom: "12px" }}>They are particularly useful for problems where exhaustive search would be computationally prohibitive.</p>
+              <div style={{ backgroundColor: "rgba(0, 229, 255, 0.1)", padding: "12px", borderRadius: "4px", marginTop: "12px" }}>
+                <strong style={{ color: "#00e5ff" }}>Complexity Analysis:</strong><br/>
+                <strong>Time Complexity:</strong> O(n log n) to O(n²) depending on implementation<br/>
+                <strong>Space Complexity:</strong> O(n) for storing intermediate results<br/>
+                <strong>Advantages:</strong> Simple implementation, often fast in practice<br/>
+                <strong>Limitations:</strong> May not always produce optimal solutions
+              </div>
+            </div>
+
+            {/* Divide and Conquer */}
+            <div style={{ marginBottom: "24px", backgroundColor: "rgba(0, 229, 255, 0.05)", padding: "20px", borderRadius: "8px", borderLeft: "4px solid #00e5ff" }}>
+              <h4 style={{ color: "#00e5ff", fontSize: "16px", marginBottom: "12px", fontWeight: "600" }}>2. Divide and Conquer</h4>
+              <p style={{ marginBottom: "8px" }}>Divide and conquer algorithms break complex problems into smaller, more manageable subproblems, solve them recursively, and combine their solutions.</p>
+              <p style={{ marginBottom: "8px" }}>This paradigm is fundamental to many efficient algorithms and forms the basis for algorithms like merge sort and quicksort.</p>
+              <p style={{ marginBottom: "8px" }}>In bioinformatics, divide and conquer is used in sequence alignment algorithms and phylogenetic tree construction.</p>
+              <p style={{ marginBottom: "8px" }}>The approach works by recursively dividing the problem until subproblems become simple enough to solve directly.</p>
+              <p style={{ marginBottom: "8px" }}>Solutions to subproblems are then combined to form the solution to the original problem.</p>
+              <p style={{ marginBottom: "12px" }}>This method is particularly effective for problems that can be naturally decomposed into independent subproblems.</p>
+              <div style={{ backgroundColor: "rgba(0, 229, 255, 0.1)", padding: "12px", borderRadius: "4px", marginTop: "12px" }}>
+                <strong style={{ color: "#00e5ff" }}>Complexity Analysis:</strong><br/>
+                <strong>Time Complexity:</strong> Often O(n log n) due to recursive division<br/>
+                <strong>Space Complexity:</strong> O(log n) for recursion stack, O(n) for auxiliary space<br/>
+                <strong>Advantages:</strong> Natural parallelization, efficient for large datasets<br/>
+                <strong>Limitations:</strong> Recursion depth limits, overhead of function calls
+              </div>
+            </div>
+
+            {/* String Matching */}
+            <div style={{ marginBottom: "24px", backgroundColor: "rgba(0, 229, 255, 0.05)", padding: "20px", borderRadius: "8px", borderLeft: "4px solid #00e5ff" }}>
+              <h4 style={{ color: "#00e5ff", fontSize: "16px", marginBottom: "12px", fontWeight: "600" }}>3. String Matching</h4>
+              <p style={{ marginBottom: "8px" }}>String matching algorithms find occurrences of a pattern within a larger text, crucial for DNA sequence analysis and bioinformatics.</p>
+              <p style={{ marginBottom: "8px" }}>The naive approach compares the pattern with every substring of the text, while optimized algorithms use preprocessing for efficiency.</p>
+              <p style={{ marginBottom: "8px" }}>KMP (Knuth-Morris-Pratt) algorithm preprocesses the pattern to avoid unnecessary comparisons, achieving linear time.</p>
+              <p style={{ marginBottom: "8px" }}>Boyer-Moore algorithm uses heuristics to skip sections of text, often performing better in practice.</p>
+              <p style={{ marginBottom: "8px" }}>In genomics, these algorithms identify gene sequences, regulatory elements, and perform sequence alignment.</p>
+              <p style={{ marginBottom: "12px" }}>Advanced variants handle approximate matching and multiple pattern searches for comprehensive analysis.</p>
+              <div style={{ backgroundColor: "rgba(0, 229, 255, 0.1)", padding: "12px", borderRadius: "4px", marginTop: "12px" }}>
+                <strong style={{ color: "#00e5ff" }}>Complexity Analysis:</strong><br/>
+                <strong>Time Complexity:</strong> O(n + m) for KMP/Boyer-Moore, O((n-m+1) × m) for naive<br/>
+                <strong>Space Complexity:</strong> O(m) for pattern preprocessing, O(1) additional space<br/>
+                <strong>Advantages:</strong> Linear time performance, handles large genomic datasets<br/>
+                <strong>Limitations:</strong> Preprocessing overhead, complex implementation
+              </div>
+            </div>
+
+            {/* Hashing */}
+            <div style={{ marginBottom: "24px", backgroundColor: "rgba(0, 229, 255, 0.05)", padding: "20px", borderRadius: "8px", borderLeft: "4px solid #00e5ff" }}>
+              <h4 style={{ color: "#00e5ff", fontSize: "16px", marginBottom: "12px", fontWeight: "600" }}>4. Hashing</h4>
+              <p style={{ marginBottom: "8px" }}>Hashing transforms data into fixed-size values called hash codes, enabling fast data retrieval and comparison operations.</p>
+              <p style={{ marginBottom: "8px" }}>Hash functions map variable-length inputs to fixed-size outputs, ideally with minimal collisions.</p>
+              <p style={{ marginBottom: "8px" }}>In bioinformatics, hashing is used for sequence indexing, k-mer counting, and fast sequence similarity searches.</p>
+              <p style={{ marginBottom: "8px" }}>Hash tables provide average O(1) lookup time, making them ideal for large-scale genomic data processing.</p>
+              <p style={{ marginBottom: "8px" }}>Rolling hash functions enable efficient sliding window computations over DNA sequences.</p>
+              <p style={{ marginBottom: "12px" }}>Cryptographic hash functions ensure data integrity, while non-cryptographic ones optimize performance.</p>
+              <div style={{ backgroundColor: "rgba(0, 229, 255, 0.1)", padding: "12px", borderRadius: "4px", marginTop: "12px" }}>
+                <strong style={{ color: "#00e5ff" }}>Complexity Analysis:</strong><br/>
+                <strong>Time Complexity:</strong> O(1) average case for insertions/lookups, O(n) worst case<br/>
+                <strong>Space Complexity:</strong> O(n) for hash table storage<br/>
+                <strong>Advantages:</strong> Fast lookups, memory efficient for sparse data<br/>
+                <strong>Limitations:</strong> Hash collisions, unpredictable worst-case performance
+              </div>
+            </div>
+
+            {/* Sliding Window */}
+            <div style={{ marginBottom: "24px", backgroundColor: "rgba(0, 229, 255, 0.05)", padding: "20px", borderRadius: "8px", borderLeft: "4px solid #00e5ff" }}>
+              <h4 style={{ color: "#00e5ff", fontSize: "16px", marginBottom: "12px", fontWeight: "600" }}>5. Sliding Window</h4>
+              <p style={{ marginBottom: "8px" }}>Sliding window techniques maintain a subset of data items for processing, moving the window across the dataset to perform computations.</p>
+              <p style={{ marginBottom: "8px" }}>This approach is particularly effective for problems requiring contiguous subarray or substring analysis.</p>
+              <p style={{ marginBottom: "8px" }}>In DNA analysis, sliding windows identify motifs, calculate GC content, and detect sequence patterns.</p>
+              <p style={{ marginBottom: "8px" }}>The technique maintains constant space complexity while achieving linear time performance.</p>
+              <p style={{ marginBottom: "8px" }}>Two-pointer approaches often implement sliding windows, with one pointer expanding and another contracting the window.</p>
+              <p style={{ marginBottom: "12px" }}>Applications include maximum sum subarrays, longest substrings, and real-time data stream processing.</p>
+              <div style={{ backgroundColor: "rgba(0, 229, 255, 0.1)", padding: "12px", borderRadius: "4px", marginTop: "12px" }}>
+                <strong style={{ color: "#00e5ff" }}>Complexity Analysis:</strong><br/>
+                <strong>Time Complexity:</strong> O(n) as each element is processed constant time<br/>
+                <strong>Space Complexity:</strong> O(1) or O(k) where k is window size<br/>
+                <strong>Advantages:</strong> Memory efficient, linear time, simple implementation<br/>
+                <strong>Limitations:</strong> Only works for contiguous data segments
+              </div>
+            </div>
+
+            {/* Branch and Bound */}
+            <div style={{ marginBottom: "24px", backgroundColor: "rgba(0, 229, 255, 0.05)", padding: "20px", borderRadius: "8px", borderLeft: "4px solid #00e5ff" }}>
+              <h4 style={{ color: "#00e5ff", fontSize: "16px", marginBottom: "12px", fontWeight: "600" }}>6. Branch and Bound</h4>
+              <p style={{ marginBottom: "8px" }}>Branch and bound systematically explores solution spaces by pruning branches that cannot lead to optimal solutions.</p>
+              <p style={{ marginBottom: "8px" }}>The algorithm uses bounding functions to eliminate suboptimal paths early in the search process.</p>
+              <p style={{ marginBottom: "8px" }}>In computational biology, it's used for protein folding prediction and multiple sequence alignment.</p>
+              <p style={{ marginBottom: "8px" }}>The method combines breadth-first search with pruning strategies to reduce computational complexity.</p>
+              <p style={{ marginBottom: "8px" }}>Lower and upper bounds guide the search, ensuring only promising paths are explored thoroughly.</p>
+              <p style={{ marginBottom: "12px" }}>This approach is particularly valuable for NP-hard problems where exhaustive search is infeasible.</p>
+              <div style={{ backgroundColor: "rgba(0, 229, 255, 0.1)", padding: "12px", borderRadius: "4px", marginTop: "12px" }}>
+                <strong style={{ color: "#00e5ff" }}>Complexity Analysis:</strong><br/>
+                <strong>Time Complexity:</strong> Variable, often exponential but better than brute force<br/>
+                <strong>Space Complexity:</strong> O(b^d) where b is branching factor, d is depth<br/>
+                <strong>Advantages:</strong> Finds optimal solutions, prunes suboptimal paths<br/>
+                <strong>Limitations:</strong> Memory intensive, requires good bounding functions
+              </div>
+            </div>
+          </div>
+
+          <div className="codon-footer" style={{ marginTop: "8px" }}>
+            Understanding algorithm design and complexity analysis · Foundation for efficient computing
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Placeholder Page ─────────────────────────────────────────────────────────
 function PlaceholderPage({ title, onBack }) {
   return (
@@ -907,7 +1052,7 @@ function MainWindow({ onNavigate }) {
 export default function App() {
   const [page, setPage] = useState(null);
 
-  if (page === "Algorithm Explanations") {
+  if (page === "Optimizer") {
     return <AlgorithmExplanationsPage onBack={() => setPage(null)} />;
   }
 
@@ -925,6 +1070,10 @@ export default function App() {
 
   if (page === "DNA Mutation") {
     return <MutationPage onBack={() => setPage(null)} />;
+  }
+
+  if (page === "DAA Concept Explanation") {
+    return <DAAExplanationPage onBack={() => setPage(null)} />;
   }
 
   if (page === "Real World Applications") {
