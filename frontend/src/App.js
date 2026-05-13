@@ -162,7 +162,7 @@ function DNAToAminoPage({ onBack }) {
   const [loading, setLoading] = useState(false);
 
   const translate = async () => {
-    const clean = dnaInput.toUpperCase().replace(/[^ATCG]/g, "");
+    const clean = dnaInput.toUpperCase().replace(/U/g, "T").replace(/[^ATCG]/g, "");
     if (clean.length < 3) {
       setResult({ error: "Please enter a valid DNA sequence (at least 3 bases)." });
       return;
@@ -321,7 +321,7 @@ function CompressionPage({ onBack }) {
   const [loading, setLoading] = useState(false);
 
   const handleCompress = async () => {
-    const clean = sequence.toUpperCase().replace(/[^ATCG]/g, "");
+    const clean = sequence.toUpperCase().replace(/U/g, "T").replace(/[^ATCG]/g, "");
     if (clean.length < 1) {
       setResult({ error: "Please enter a valid DNA sequence." });
       return;
@@ -444,8 +444,8 @@ function MutationPage({ onBack }) {
   const [loading, setLoading] = useState(false);
 
   const handleAnalyze = async () => {
-    const clean1 = seq1.toUpperCase().replace(/[^ATCG]/g, "");
-    const clean2 = seq2.toUpperCase().replace(/[^ATCG]/g, "");
+    const clean1 = seq1.toUpperCase().replace(/U/g, "T").replace(/[^ATCG]/g, "");
+    const clean2 = seq2.toUpperCase().replace(/U/g, "T").replace(/[^ATCG]/g, "");
     if (clean1.length < 1 || clean2.length < 1) {
       setResult({ error: "Please enter both DNA sequences." });
       return;
@@ -657,9 +657,9 @@ function AlgorithmExplanationsPage({ onBack }) {
   const [submitted, setSubmitted] = useState(false);
 
   const handleOptimize = async () => {
-    const clean = sequence.toUpperCase().replace(/[^ATCG]/g, "");
-    if (clean.length < 3) {
-      setResult({ error: "Please enter a valid DNA sequence (at least 3 bases)." });
+    const clean = sequence.toUpperCase().replace(/U/g, "T").replace(/[^ATCG]/g, "");
+    if (clean.length < 1) {
+      setResult({ error: "Please enter a valid DNA sequence." });
       setSubmitted(true);
       return;
     }
@@ -1037,9 +1037,9 @@ function MainWindow({ onNavigate }) {
             <h1 className="card-title">DNA Sequencing Optimization</h1>
             <button
               className="cta-btn"
-              onClick={() => onNavigate("Algorithm Explanations")}
+              onClick={() => onNavigate("Optimizer")}
             >
-              <span>Optimizer</span>
+              <span>Optimize</span>
             </button>
           </div>
         </div>
